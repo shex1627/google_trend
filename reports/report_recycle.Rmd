@@ -1,0 +1,21 @@
+---
+title: "report_recycle"
+author: "Shicheng Huang"
+date: "November 14, 2016"
+output: pdf_document
+---
+
+Deciding to change 3 and 7 to the mid point between the one before and the one after
+```{r}
+yr4_index <- 158:209
+yr123_index <- 1:157
+ts2_adjusted <- ts2
+ts2_adjusted[3] = mean(c(ts2[2], ts2[3]))
+ts2_adjusted[7] = mean(c(ts2[6], ts2[8]))
+plot(diff(ts2_adjusted, 52), type = "l")
+plot(diff(diff(ts2_adjusted, 52)), type = "l")
+mod_mse(ts2_adjusted[yr123_index], ts2_adjusted[yr4_index], c(0, 1, 1), c(0, 1, 1))
+```
+Unfortunately, I tried to remove the anomality but failed. Additionally, I use the general seasonal model with the adjusted data but the results get worse by a good margin. 
+
+
